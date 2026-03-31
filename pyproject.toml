@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "posthog-flag-agent"
+version = "0.1.0"
+description = "Autonomous feature flag remediation agent using MCP"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Nitin Savio Bada" }]
+license = { text = "MIT" }
+dependencies = [
+    "mcp>=0.1.0",
+    "httpx>=0.24.0",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "structlog>=23.1.0",
+    "rich>=13.0.0",
+    "click>=8.1.0",
+    "numpy>=1.24.0",
+    "uvicorn>=0.22.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "types-click>=7.1.0",
+]
+
+[project.scripts]
+posthog-flag-agent = "src.__main__:main"
+posthog-flag-mcp = "src.mcp_server.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "N", "UP", "ASYNC"]
+ignore = []
+
+[tool.mypy]
+strict = true
+python_version = "3.11"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
