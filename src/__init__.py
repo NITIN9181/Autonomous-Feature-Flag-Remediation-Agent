@@ -1,3 +1,2 @@
-"""PostHog Feature Flag Remediation Agent — Autonomous error correlation and flag rollback."""
-
+# PostHog Autonomous Remediation Agent
 __version__ = "0.1.0"
